@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router()
 // const TodoController = require("../controllers/todos")
-const { login } = require('../controllers/auth');
+const { login, register } = require('../controllers/auth');
 
 router.get("/", (req, res) => {
     res.send("<strong>Hello DumbWays Rumah Tengah</strong>");
@@ -9,6 +9,7 @@ router.get("/", (req, res) => {
 
 
 router.post('/login', login)
+router.post('/register', register)
 //todocontroller
 // router.get('/todos', TodoController.index)
 // router.get('/todo/:id', TodoController.show)

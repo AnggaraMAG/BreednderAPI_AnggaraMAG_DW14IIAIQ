@@ -14,15 +14,20 @@ module.exports = {
       gender: {
         type: Sequelize.STRING
       },
-      created_by: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        reference: {
-          model: 'users',
-          key: 'id'
-        },
-        onUpdate: 'cascade',
-        onDelete: 'cascade',
+      species: {
+        type: Sequelize.INTEGER
+      },
+      age: {
+        type: Sequelize.STRING
+      },
+      user: {
+        type: Sequelize.INTEGER
+      },
+      about_pet: {
+        type: Sequelize.STRING
+      },
+      photo: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
