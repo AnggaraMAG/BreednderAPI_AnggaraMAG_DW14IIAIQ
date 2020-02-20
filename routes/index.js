@@ -4,7 +4,7 @@ const router = express.Router()
 const { login, register } = require('../controllers/auth');
 const { index, add } = require('../controllers/species');
 const { authorization } = require('../middleware/authorization');
-const { Petindex, Petadd, Petupdate, Petdestroyer } = require('../controllers/pet');
+const { Petindex, Petadd, Petupdate, Petdestroyer, Petdetails } = require('../controllers/pet');
 
 router.get("/", (req, res) => {
     res.send("<strong>Hello DumbWays Rumah Tengah</strong>");
@@ -23,6 +23,7 @@ router.get('/pets', Petindex);
 router.post('/pet', Petadd);
 router.put('/pet/:id', Petupdate);
 router.delete('/pet/:id', Petdestroyer);
+router.get('/pet/:id', Petdetails);
 
 
 //todocontroller

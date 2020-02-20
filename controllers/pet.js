@@ -42,6 +42,7 @@ exports.Petadd = async (req, res) => {
         });
         const id = pet.id;
         const data = await Pet.findOne({
+            where: { id },
             include: [
                 {
                     model: User,
@@ -55,7 +56,7 @@ exports.Petadd = async (req, res) => {
                 }
             ],
             attributes: { exclude: ["user", "species"] }
-        }, { where: { id } });
+        });
         res.status(200).send({
             status: true,
             message: "success add new pet",
@@ -67,11 +68,10 @@ exports.Petadd = async (req, res) => {
 }
 
 exports.Petupdate = async (req, res) => {
-    const id_data = req.params.id;
+    const id = req.params.id;
     const { name, gender, age, about_pet, photo } = req.body;
     const species = req.body.species.id;
     const user = req.body.user.id;
-
     try {
         const pet = await Pet.update({
             name,
@@ -81,9 +81,11 @@ exports.Petupdate = async (req, res) => {
             user,
             about_pet,
             photo
-        }, { where: { id: id_data } });
-        const id = pet.id;
+        },
+            { where: { id } }
+        );
         const data = await Pet.findOne({
+            where: { id },
             include: [
                 {
                     model: User,
@@ -98,14 +100,14 @@ exports.Petupdate = async (req, res) => {
             ],
             attributes: { exclude: ["user", "species"] }
         },
-            { where: { id } });
+        );
         res.status(200).send({
             status: true,
             message: "success update a pet",
             data: data
         })
     } catch (error) {
-
+        console.log(error)
     }
 }
 
@@ -117,6 +119,34 @@ exports.Petdestroyer = async (req, res) => {
             message: "success deleted a pet",
             id: pet
         })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+exports.Petdetails = async (req, res) => {
+    try {
+        const id = req.params.id;
+        console.log(id)
+        const pet = await Pet.findOne(
+            {
+                where: { id },
+                include: [
+                    {
+                        model: User,
+                        as: "breeder",
+                        attributes: ["id", "name", "address", "phone"]
+                    },
+                    {
+                        model: Species,
+                        as: "category",
+                        attributes: ["id", "name"]
+                    }
+                ],
+                attributes: { exclude: ["user", "species"] }
+            });
+        console.log(pet);
+        res.send(pet);
     } catch (error) {
         console.log(error)
     }
