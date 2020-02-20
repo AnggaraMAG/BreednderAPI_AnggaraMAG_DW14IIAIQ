@@ -127,7 +127,7 @@ exports.Petdestroyer = async (req, res) => {
 exports.Petdetails = async (req, res) => {
     try {
         const id = req.params.id;
-        console.log(id)
+        // console.log(id)
         const pet = await Pet.findOne(
             {
                 where: { id },

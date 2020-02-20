@@ -8,6 +8,7 @@ exports.login = async (req, res) => {
         const user = await User.findOne({ where: { email, password } });
         if (user) {
             const token = jwt.sign({ user_id: user.id }, process.env.SECRET_KEY);
+            console.log(token);
             res.send({ email, token });
         } else {
             res.status(401).send({ message: "invalid login" });
@@ -50,7 +51,7 @@ exports.register = async (req, res) => {
             });
 
             if (userRes && petRes) {
-                const token = jwt.sign({ user_id: user.id }, process.env.SECRET_KEY);
+                const token = jwt.sign({ user_id: user.id }, "asasas");
                 res
                     .status(200)
                     .send({ email, token, status: true, message: "Register Success" });
